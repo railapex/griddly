@@ -1821,7 +1821,9 @@
 
                     // iterate through table and check rows that are in the selected list and have a checkbox
                     var _this = this;
-                    var remainingRows = { };
+                    // Filter/sort changes (resetPage) drop selections that no longer match the result set.
+                    // Page navigation preserves off-page selections so users can accumulate selections across pages.
+                    var remainingRows = resetPage ? { } : $.extend({}, _this.options.selectedRows);
 
                     $("tbody tr", this.$element).find("input[name=_rowselect]").each(function (index, e) {
                         var rowkey = $(e).data("rowkey");
